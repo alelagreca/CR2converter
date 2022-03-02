@@ -194,14 +194,14 @@ class AppWindow:
                                 window['-PROC-'].update(text='Run', button_color='white on green')
                                 run = not run
                             else:
-                                print('error...')
+                                print('error 1...')
                                 sg.popup('''Something is wrong with your files.
 Please, check file properties.''',
                                 keep_on_top=True,font=self.font,title="Error message",no_titlebar=False,button_color=("sienna1"))
                                 window['-PROC-'].update(text='Run', button_color='white on green')
                                 run = not run
                         except:
-                            print('error...')
+                            print('error 2...')
                             sg.popup('''Something is wrong with your files.
 Please, check file properties.''',
                             keep_on_top=True,font=self.font,title="Error message",no_titlebar=False,button_color=("sienna1"))
@@ -222,7 +222,7 @@ if __name__ == '__main__':
     # variables
     window_appearence='Dark'
     font_and_size=('Helvetica 12')
-    path_to_image='images/cr2icon_256x256x32.png'
+    path_to_image='cr2icon_256x256x32.png'
     button_change_delay=2
 
     # launch gui
