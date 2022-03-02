@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import subprocess
 import os.path
-import _thread
 import time
 
     
