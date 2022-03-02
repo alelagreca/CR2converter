@@ -37,7 +37,10 @@ class AppWindow:
         return test_exit
     
     def runShellScript(self):
-        exitval=subprocess.call(['./CR2toX',self.folderin,self.list_of_fnames,self.folderout,self.form])
+        fnames=''
+        for item in self.list_of_fnames:
+            fnames += str(item)+' '
+        exitval=subprocess.call(['./CR2toX',self.folderin,fnames,self.folderout,self.form])
         return exitval
     
     def justwait(self):
@@ -183,13 +186,14 @@ class AppWindow:
                         self.form=window["-FORMAT-"].get()
                         print("FORMAT: "+self.form)
                         try:
-                            exitval=self.runTestCmd()   # uncomment to run test script (comment next line)
-                            #self.runShellScript()   # actual bash script with sips cmd
+                            #exitval=self.runTestCmd()   # uncomment to run test script (comment next line)
+                            exitval=self.runShellScript()   # actual bash script with sips cmd
                             if exitval == 0:
                                 print("\n<<<<<<<<<<<<<<<<<<<<<<<<")
                                 print("finished...")
                                 self.justwait()
                                 window['-PROC-'].update(text='Run', button_color='white on green')
+                                run = not run
                             else:
                                 print('error...')
                                 sg.popup('''Something is wrong with your files.

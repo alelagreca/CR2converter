@@ -1,43 +1,39 @@
 #!/bin/bash
 
 # Convert CR2 CANON RAW format to different formats
+#parameters:
+#1) input directory
+#2) list of files to convert
+#3) output directory
+#4) output format
+
 input_dir="${1}"
-input_list=$(echo ${2} | tr "[]" "()" | tr "," " ")
+input_list=${2}
 output_dir="${3}"
 output_format="${4}"
 
-CR2toX() {
-    #parameters:
-    #1) input directory
-    #2) list of files to convert
-    #3) output directory
-    #4) output format
 
-    files_total=$(ls "${1}"/*.CR2 | wc -l)
-    printf "Number of CR2 files to convert into ${4}: ${files_total}\n"
-    printf "\n"
-
-    file_counter=1
-    files=${2}
-
-    for i in "${files[@]}" 
-        do 
-            printf "\r ${file_counter} of ${files_total}\n"        
-            base=$(basename ${i} .CR2)
-            if [[ "${4}" == "jpeg" ]]; then
-                sips -s format ${4} $i --out ${3}/"${base}.jpg"
-            else
-                sips -s format ${4} $i --out ${3}/"${base}.${4}"
-            fi
-            ((file_counter++))
-        done
-    printf "\n"
-}
-
-### Main
+## Main
 
 printf "\n --> Converting CR2 files to ${output_format}\n"
 printf "\n"
 
-CR2toX "${input_dir}" "$input_list" "${output_dir}" "${output_format}"
+files_total=$(ls "${input_dir}"/*.CR2 | wc -l)
+printf "Number of CR2 files to convert into ${output_format}: ${files_total}\n"
+printf "\n"
+
+file_counter=1
+
+for i in ${input_list[@]} 
+    do 
+        printf "\r ${file_counter} of ${files_total}\n"        
+        base=$(basename ${i} .CR2)
+        if [[ ${output_format} == "jpeg" ]]; then
+            sips -s format ${output_format} $i --out ${output_dir}/${base}.jpg
+        else
+            sips -s format ${output_format} $i --out ${output_dir}/${base}.${output_format}
+        fi
+        ((file_counter++))
+    done
+printf "\n"
 
