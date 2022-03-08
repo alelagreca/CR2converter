@@ -68,13 +68,13 @@ class AppWindow:
                     
                 Note: hit the Stop button to abort run or Exit button to quit program.
                 
-                Write to ale.lagreca@gmail.com for any questions. Cheers''')
+                Write to ale.lagreca@gmail.com for any questions. Cheers''', font=self.font)
             ]
         ]
         
         layout_file_col=[
             [
-                sg.Text("Input directory"),sg.In(size=(25, 1), 
+                sg.Text("Input directory",font=self.font),sg.In(size=(25, 1), 
                 enable_events=True, key="-FOLDERIN-"),sg.FolderBrowse()
             ],
             [
@@ -86,14 +86,14 @@ class AppWindow:
                 horizontal_scroll = False)
             ],
             [
-                sg.Text("Output directory"),sg.In(size=(25, 1), 
+                sg.Text("Output directory",font=self.font),sg.In(size=(25, 1), 
                 enable_events=True,key="-FOLDEROUT-"),sg.FolderBrowse()
             ],
             [
                 sg.Button('Clear',key="-CLR1-")  
             ],
             [
-                sg.Text("Target format:"),sg.Combo(values=["jpeg","tiff","png","gif","jp2","pict","bmp","qtif","psd","sgi","tga"],
+                sg.Text("Target format:",font=self.font),sg.Combo(values=["jpeg","tiff","png","gif","jp2","pict","bmp","qtif","psd","sgi","tga"],
                 default_value="jpeg",key="-FORMAT-",enable_events=True)
             ],
             [
