@@ -26,12 +26,11 @@ file_counter=1
 
 for i in ${input_list[@]} 
     do 
-        printf "\r ${file_counter} of ${files_total}\n"        
-        base=$(basename ${i} .CR2)
+        printf "\r ${file_counter} of ${files_total}\n"
         if [[ ${output_format} == "jpeg" ]]; then
-            sips -s format ${output_format} $i --out ${output_dir}/${base}.jpg
+            sips -s format ${output_format} $i --out ${output_dir}/${i%jpg}
         else
-            sips -s format ${output_format} $i --out ${output_dir}/${base}.${output_format}
+            sips -s format ${output_format} $i --out ${output_dir}/${i%${output_format}}
         fi
         ((file_counter++))
     done

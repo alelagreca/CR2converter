@@ -25,5 +25,14 @@ You may also change the default output format from jpg to any of tiff, png and m
 
 Hope it helps!!!
 
+
+## Application
+CR2converter was packaged as a portable app using pyinstaller.
+
+```bash
+pyinstaller --onefile --windowed --add-data "cr2icon_256x256x32.png:." --add-data "CR2toX:." --icon cr2icon.icns cr2converter.py
+```
+
+
 * **Alejandro La Greca** | <ale.lagreca@gmail.com> |  [Github](https://github.com/alelagreca) | [Twitter](https://twitter.com/aled_lg) 
 
