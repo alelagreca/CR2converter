@@ -2,15 +2,17 @@ import PySimpleGUI as sg
 import subprocess
 import os.path
 import time
+import sys
 
     
 class AppWindow:    
     # init function
-    def __init__(self,theme,font,image_dir,delaytime,testex='testing'):
+    def __init__(self,theme,font,image_dir,delaytime,main_func,testex='testing'):
         self.theme = theme
         self.font = font
         self.image = image_dir
         self.delaytime = delaytime
+        self.function = main_func
         self.test = testex
     
     # custom functions
@@ -30,18 +32,26 @@ class AppWindow:
         for file in self.list_of_names:
             print(file)
         print("\n--------------------------------")
-            
-    def runTestCmd(self):
-        test_exit=subprocess.call(['./test.sh',self.test])
-        return test_exit
+    
+    def resource_path(self,relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+           
+    #def runTestCmd(self):
+    #    test_exit=subprocess.call(['./test.sh',self.test])
+    #    return test_exit
     
     def runShellScript(self):
         fnames=''
         for item in self.list_of_fnames:
             fnames += str(item)+' '
-        exitval=subprocess.call(['./CR2toX',self.folderin,fnames,self.folderout,self.form])
-        return exitval
-    
+            cr2_func="bash "+self.resource_path(self.function)
+        return subprocess.call([cr2_func,self.folderin,fnames,self.folderout,self.form])
+        
     def justwait(self):
         time.sleep(self.delaytime)
         
@@ -51,7 +61,7 @@ class AppWindow:
         
         layout_help=[
             [
-                sg.Image(source=self.image)
+                sg.Image(source=self.resource_path(self.image))
             ],
             [
                 sg.Text('''How to use
@@ -224,7 +234,8 @@ if __name__ == '__main__':
     font_and_size=('Helvetica 12')
     path_to_image='cr2icon_256x256x32.png'
     button_change_delay=2
+    main_function='CR2toX'
 
     # launch gui
-    win = AppWindow(window_appearence,font_and_size,path_to_image,button_change_delay)
+    win = AppWindow(window_appearence,font_and_size,path_to_image,button_change_delay,main_function)
     win.main()

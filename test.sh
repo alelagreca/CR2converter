@@ -7,9 +7,11 @@ maybe() {
         printf "variable empty\n"
         exit 1
     else
-        printf "\n$1\n"
+        printf "$1\n"
     fi
     printf "this only prints if variable is not null\n"
 }
+
+export -f maybe
 
 maybe "${input}"
