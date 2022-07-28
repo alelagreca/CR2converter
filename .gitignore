@@ -3,5 +3,6 @@ __pycache__/
 
 .Python
 build/
-dist/
+#dist/
 .DS_Store
+.spec

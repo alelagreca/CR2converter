@@ -38,7 +38,6 @@ class AppWindow:
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath(".")
-
         return os.path.join(base_path, relative_path)
            
     #def runTestCmd(self):
@@ -49,9 +48,10 @@ class AppWindow:
         fnames=''
         for item in self.list_of_fnames:
             fnames += str(item)+' '
-            cr2_func="bash "+self.resource_path(self.function)
-        return subprocess.call([cr2_func,self.folderin,fnames,self.folderout,self.form])
-        
+        cr2_func=self.resource_path(self.function)
+        exitvalue=subprocess.call(['/bin/bash',cr2_func,self.folderin,fnames,self.folderout,self.form])
+        return exitvalue
+
     def justwait(self):
         time.sleep(self.delaytime)
         
@@ -205,14 +205,14 @@ class AppWindow:
                                 run = not run
                             else:
                                 print('error 1...')
-                                sg.popup('''Something is wrong with your files.
+                                sg.popup('''Non-zero exit value.
 Please, check file properties.''',
                                 keep_on_top=True,font=self.font,title="Error message",no_titlebar=False,button_color=("sienna1"))
                                 window['-PROC-'].update(text='Run', button_color='white on green')
                                 run = not run
                         except:
                             print('error 2...')
-                            sg.popup('''Something is wrong with your files.
+                            sg.popup('''Non-zero exit value.
 Please, check file properties.''',
                             keep_on_top=True,font=self.font,title="Error message",no_titlebar=False,button_color=("sienna1"))
                             window['-PROC-'].update(text='Run', button_color='white on green')

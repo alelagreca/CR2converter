@@ -27,11 +27,7 @@ file_counter=1
 for i in ${input_list[@]} 
     do 
         printf "\r ${file_counter} of ${files_total}\n"
-        if [[ ${output_format} == "jpeg" ]]; then
-            sips -s format ${output_format} $i --out ${output_dir}/${i%jpg}
-        else
-            sips -s format ${output_format} $i --out ${output_dir}/${i%${output_format}}
-        fi
+        sips -s format ${output_format} $i --out ${output_dir}
         ((file_counter++))
     done
 printf "\n"
